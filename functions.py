@@ -61,12 +61,15 @@ def create_graph(actions_to_map, name, behavioral_action_space, all_edges):
                 graph_messages.append(cur.message)
 
     for sm in sm_actions:
-        if sm.entity not in seen:
-            sm.entity.create_node(graph)
-            seen.append(sm.entity)
+        entity_name2 = sm.entity.label + "_2"
+        if entity_name2 not in seen:
+            graph.node(entity_name2, sm.entity.label,
+                       shape="cylinder", color="black")
+            seen.append(entity_name2)
         var_label = "{}.{}".format(sm.entity.label, sm.variable)
         if var_label not in seen:
             graph.node(var_label, var_label)
+            graph.edge(var_label, entity_name2)
             seen.append(var_label)
 
         graph.edge(sm.origin.label, var_label)
