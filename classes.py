@@ -73,7 +73,7 @@ class PolicyAction(SystemAction):
         graph.node(self.label, self.label, shape=self.node_shape,
                    style='filled', color=self.node_color)
 
-    def write_description(self):
+    def write_description(self, policy_options=None):
         out = ""
         out += "<h3>"
         out += self.label
@@ -84,6 +84,10 @@ class PolicyAction(SystemAction):
         out += "<h4>Constraints:</h4>\n"
         for i, x in enumerate(self.constraints):
             out += "{}. {}\n".format(i+1, x)
+        if policy_options:
+            out += "<h4>Policy Options:</h4>\n"
+            for i, x in enumerate(policy_options):
+                out += "{}. {}\n".format(i+1, x.label)
 
         return out
 
