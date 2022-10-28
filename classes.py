@@ -38,6 +38,22 @@ class BehavioralAction:
         graph.node(self.label, self.label, shape=self.node_shape,
                    style='filled', color=self.node_color)
 
+    def write_description(self):
+        out = ""
+        out += "<h3>"
+        out += self.label
+        out += "</h3>"
+        out += "<p>"
+        out += self.description
+        out += "</p>"
+        out += "<h4>Called By:</h4>\n"
+        for i, x in enumerate(self.called_by):
+            out += "{}. {}\n".format(i+1, x.label)
+        out += "<h4>Constraints:</h4>\n"
+        for i, x in enumerate(self.constraints):
+            out += "{}. {}\n".format(i+1, x)
+        return out
+
 
 class SystemAction:
     pass
