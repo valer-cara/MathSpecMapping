@@ -87,7 +87,10 @@ class PolicyAction(SystemAction):
         if policy_options:
             out += "<h4>Policy Options:</h4>\n"
             for i, x in enumerate(policy_options):
-                out += "{}. {}\n".format(i+1, x.label)
+                out += "<details>"
+                out += "<summary><b>{}. {}</b></summary>".format(i+1, x.label)
+                out += x.description
+                out += "</details>"
 
         return out
 
