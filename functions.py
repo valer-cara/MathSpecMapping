@@ -82,3 +82,11 @@ def create_graph(actions_to_map, name, behavioral_action_space, all_edges):
         print("{}: {} -> {}".format(g.color, g.__name__, a))
         print()
     display(graph)
+
+
+def write_out_behavioral_functions(behavioral_action_space, action_names):
+    out = "<h3>Behavioral Action Space</h3>"
+    for name in action_names:
+        out += behavioral_action_space[name].write_description()
+
+    return out
