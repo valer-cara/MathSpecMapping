@@ -110,3 +110,16 @@ def reverse_out_graph(all_edges):
                 possible_outputs[key].add(message)
                 possible_inputs[other_key].add(message)
     return all_edges_reverse, possible_outputs, possible_inputs
+
+
+def create_description_sets(all_edges):
+    all_edges_reverse, possible_outputs, possible_inputs = reverse_out_graph(
+        all_edges)
+    description_sets = {}
+
+    for x in set(list(all_edges.keys()) + list(all_edges_reverse.keys())):
+        description_sets[x] = {"preceded_by": all_edges_reverse.get(x, []),
+                               "followed_by": [y.target.label for y in all_edges.get(x, []) if type(y) == Edge],
+                               "outputs": possible_outputs.get(x),
+                               "inputs": possible_inputs.get(x)}
+    return description_sets

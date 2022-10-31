@@ -4,4 +4,5 @@ from .classes import (SystemState, Message, Entity,
                       Edge, StateModificationEdge,
                       PolicyActionOption)
 from .functions import (find_starting_entities, create_graph,
-                        write_out_behavioral_functions, reverse_out_graph)
+                        write_out_behavioral_functions, reverse_out_graph,
+                        create_description_sets)
