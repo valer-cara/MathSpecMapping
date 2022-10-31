@@ -1,7 +1,7 @@
 from copy import copy
 import graphviz
 from IPython.display import display
-from .classes import StateModificationEdge
+from .classes import StateModificationEdge, Edge
 
 
 def find_starting_entities(actions_to_map, behavioral_action_space, behavioral_action_edges):
@@ -90,3 +90,23 @@ def write_out_behavioral_functions(behavioral_action_space, action_names):
         out += behavioral_action_space[name].write_description()
 
     return out
+
+
+def reverse_out_graph(all_edges):
+    all_edges_reverse = {}
+    possible_outputs = {}
+    possible_inputs = {}
+
+    for key in all_edges:
+        possible_outputs[key] = set()
+        for e in all_edges[key]:
+            if type(e) == Edge:
+                other_key = e.target.label
+                message = e.message
+                if other_key not in all_edges_reverse:
+                    all_edges_reverse[other_key] = set()
+                    possible_inputs[other_key] = set()
+                all_edges_reverse[other_key].add(key)
+                possible_outputs[key].add(message)
+                possible_inputs[other_key].add(message)
+    return all_edges_reverse, possible_outputs, possible_inputs
