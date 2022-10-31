@@ -73,7 +73,7 @@ class PolicyAction(SystemAction):
         graph.node(self.label, self.label, shape=self.node_shape,
                    style='filled', color=self.node_color)
 
-    def write_description(self, policy_options=None):
+    def write_description(self, description_set, policy_options=None):
         out = ""
         out += "<h3>"
         out += self.label
@@ -81,6 +81,23 @@ class PolicyAction(SystemAction):
         out += "<p>"
         out += self.description
         out += "</p>"
+
+        out += "<h4>Preceded By:</h4>\n"
+        for i, x in enumerate(description_set["preceded_by"]):
+            out += "{}. {}\n".format(i+1, x)
+
+        out += "<h4>Input Messages:</h4>\n"
+        for i, x in enumerate(description_set["inputs"]):
+            out += "{}. {}\n".format(i+1, x)
+
+        out += "<h4>Followed By:</h4>\n"
+        for i, x in enumerate(description_set["followed_by"]):
+            out += "{}. {}\n".format(i+1, x)
+
+        out += "<h4>Output Messages:</h4>\n"
+        for i, x in enumerate(description_set["outputs"]):
+            out += "{}. {}\n".format(i+1, x)
+
         out += "<h4>Constraints:</h4>\n"
         for i, x in enumerate(self.constraints):
             out += "{}. {}\n".format(i+1, x)
