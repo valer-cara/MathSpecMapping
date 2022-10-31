@@ -84,30 +84,56 @@ class PolicyAction(SystemAction):
 
         out += "<h4>Preceded By:</h4>\n"
         for i, x in enumerate(description_set["preceded_by"]):
-            out += "{}. {}\n".format(i+1, x)
+            out += "{}. {}".format(i+1, x)
+            out += "<br/>"
 
         out += "<h4>Input Messages:</h4>\n"
         for i, x in enumerate(description_set["inputs"]):
-            out += "{}. {}\n".format(i+1, x)
+            out += "{}. {}".format(i+1, x)
+            out += "<br/>"
 
         out += "<h4>Followed By:</h4>\n"
         for i, x in enumerate(description_set["followed_by"]):
-            out += "{}. {}\n".format(i+1, x)
+            out += "{}. {}".format(i+1, x)
+            out += "<br/>"
 
         out += "<h4>Output Messages:</h4>\n"
         for i, x in enumerate(description_set["outputs"]):
-            out += "{}. {}\n".format(i+1, x)
+            out += "{}. {}".format(i+1, x)
+            out += "<br/>"
 
         out += "<h4>Constraints:</h4>\n"
         for i, x in enumerate(self.constraints):
             out += "{}. {}\n".format(i+1, x)
+            out += "<br/>"
         if policy_options:
             out += "<h4>Policy Options:</h4>\n"
             for i, x in enumerate(policy_options):
                 out += "<details>"
                 out += "<summary><b>{}. {}</b></summary>".format(i+1, x.label)
+                out += "<br/>"
                 out += x.description
+
+                out += "<br/>"
+                out += "<br/>"
+                out += "Input Messages:<br/>"
+                for i, y in enumerate(x.inputs):
+                    out += "{}. {}\n".format(i+1, y.__name__)
+                out += "<br/>"
+
+                out += "<br/>"
+                out += "Output Messages:<br/>"
+                for i, y in enumerate(x.outputs):
+                    out += "{}. {}\n".format(i+1, y.__name__)
+                out += "<br/>"
+                out += "<br/>"
+
+                out += "Logic: {}".format(x.logic)
+                out += "<br/>"
+                out += "<br/>"
+
                 out += "</details>"
+            out += "<br/>"
 
         return out
 
@@ -116,6 +142,9 @@ class PolicyAction(SystemAction):
 class PolicyActionOption(SystemAction):
     label: str
     description: str
+    inputs: List[Message]
+    outputs: List[Message]
+    logic: str
 
 
 @dataclass
