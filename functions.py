@@ -120,6 +120,6 @@ def create_description_sets(all_edges):
     for x in set(list(all_edges.keys()) + list(all_edges_reverse.keys())):
         description_sets[x] = {"preceded_by": all_edges_reverse.get(x, []),
                                "followed_by": [y.target.label for y in all_edges.get(x, []) if type(y) == Edge],
-                               "outputs": possible_outputs.get(x),
-                               "inputs": possible_inputs.get(x)}
+                               "outputs": [y.__name__ for y in possible_outputs.get(x, [])],
+                               "inputs": [y.__name__ for y in possible_inputs.get(x, [])]}
     return description_sets
