@@ -101,12 +101,22 @@ def write_out_policies(policies, action_names, description_sets, policy_options)
     return out
 
 
-def write_spec_details(action_dictionary, behavioral_action_space, policies, description_sets, policy_options):
+def write_out_mechanisms(mechanisms, action_names, description_sets):
+    out = "<h2>Mechanisms</h2>"
+    for name in action_names:
+        out += mechanisms[name].write_description(description_sets[name],)
+
+    return out
+
+
+def write_spec_details(action_dictionary, behavioral_action_space, policies, mechanisms, description_sets, policy_options):
     out = ""
     out += write_out_behavioral_functions(
         behavioral_action_space, action_dictionary["behavioral"])
     out += write_out_policies(policies,
                               action_dictionary["policies"], description_sets, policy_options)
+    out += write_out_mechanisms(mechanisms,
+                                action_dictionary["mechanisms"], description_sets)
     return out
 
 

@@ -152,6 +152,7 @@ class MechanismAction(SystemAction):
     label: str
     description: str
     constraints: List[str]
+    logic: str = None
 
     action_type: str = "Mechanism"
     node_color: str = "blue"
@@ -189,6 +190,9 @@ class MechanismAction(SystemAction):
         for i, x in enumerate(self.constraints):
             out += "{}. {}\n".format(i+1, x)
             out += "<br/>"
+
+        out += "<h4>Logic:</h4>\n"
+        out += self.logic
 
         return out
 
