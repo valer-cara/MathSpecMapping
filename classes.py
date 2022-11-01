@@ -161,6 +161,37 @@ class MechanismAction(SystemAction):
         graph.node(self.label, self.label, shape=self.node_shape,
                    style='filled', color=self.node_color)
 
+    def write_description(self, description_set):
+        out = ""
+        out += "<h3>"
+        out += self.label
+        out += "</h3>"
+        out += "<p>"
+        out += self.description
+        out += "</p>"
+
+        out += "<h4>Input Messages:</h4>\n"
+        for i, x in enumerate(description_set["inputs"]):
+            out += "{}. {}".format(i+1, x)
+            out += "<br/>"
+
+        out += "<h4>Followed By:</h4>\n"
+        for i, x in enumerate(description_set["followed_by"]):
+            out += "{}. {}".format(i+1, x)
+            out += "<br/>"
+
+        out += "<h4>Output Messages:</h4>\n"
+        for i, x in enumerate(description_set["outputs"]):
+            out += "{}. {}".format(i+1, x)
+            out += "<br/>"
+
+        out += "<h4>Constraints:</h4>\n"
+        for i, x in enumerate(self.constraints):
+            out += "{}. {}\n".format(i+1, x)
+            out += "<br/>"
+
+        return out
+
 
 @dataclass
 class Edge:
