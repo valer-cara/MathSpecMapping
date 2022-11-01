@@ -1,5 +1,5 @@
 import graphviz
-from typing import List, Union
+from typing import List, Union, Tuple
 from dataclasses import dataclass
 
 
@@ -48,10 +48,14 @@ class BehavioralAction:
         out += "</p>"
         out += "<h4>Called By:</h4>\n"
         for i, x in enumerate(self.called_by):
-            out += "{}. {}\n".format(i+1, x.label)
+            out += "<p>"
+            out += "{}. {}".format(i+1, x.label)
+            out += "</p>"
         out += "<h4>Constraints:</h4>\n"
         for i, x in enumerate(self.constraints):
-            out += "{}. {}\n".format(i+1, x)
+            out += "<p>"
+            out += "{}. {}".format(i+1, x)
+            out += "</p>"
         return out
 
 
@@ -84,53 +88,60 @@ class PolicyAction(SystemAction):
 
         out += "<h4>Preceded By:</h4>\n"
         for i, x in enumerate(description_set["preceded_by"]):
+            out += "<p>"
             out += "{}. {}".format(i+1, x)
-            out += "<br/>"
+            out += "</p>"
 
         out += "<h4>Input Messages:</h4>\n"
         for i, x in enumerate(description_set["inputs"]):
+            out += "<p>"
             out += "{}. {}".format(i+1, x)
-            out += "<br/>"
+            out += "</p>"
 
         out += "<h4>Followed By:</h4>\n"
         for i, x in enumerate(description_set["followed_by"]):
+            out += "<p>"
             out += "{}. {}".format(i+1, x)
-            out += "<br/>"
+            out += "</p>"
 
         out += "<h4>Output Messages:</h4>\n"
         for i, x in enumerate(description_set["outputs"]):
+            out += "<p>"
             out += "{}. {}".format(i+1, x)
-            out += "<br/>"
+            out += "</p>"
 
         out += "<h4>Constraints:</h4>\n"
         for i, x in enumerate(self.constraints):
+            out += "<p>"
             out += "{}. {}\n".format(i+1, x)
-            out += "<br/>"
+            out += "</p>"
         if policy_options:
             out += "<h4>Policy Options:</h4>\n"
             for i, x in enumerate(policy_options):
                 out += "<details>"
                 out += "<summary><b>{}. {}</b></summary>".format(i+1, x.label)
-                out += "<br/>"
+                out += "<p>"
                 out += x.description
+                out += "</p>"
 
-                out += "<br/>"
-                out += "<br/>"
-                out += "Input Messages:<br/>"
+                out += "<p>"
+                out += "Input Messages:"
+                out += "</p>"
+
                 for i, y in enumerate(x.inputs):
+                    out += "<p>"
                     out += "{}. {}\n".format(i+1, y.__name__)
-                out += "<br/>"
+                    out += "</p>"
 
-                out += "<br/>"
-                out += "Output Messages:<br/>"
+                out += "Output Messages:"
                 for i, y in enumerate(x.outputs):
-                    out += "{}. {}\n".format(i+1, y.__name__)
-                out += "<br/>"
-                out += "<br/>"
+                    out += "<p>"
+                    out += "{}. {}".format(i+1, y.__name__)
+                    out += "</p>"
 
+                out += "<p>"
                 out += "Logic: {}".format(x.logic)
-                out += "<br/>"
-                out += "<br/>"
+                out += "</p>"
 
                 out += "</details>"
             out += "<br/>"
@@ -173,26 +184,32 @@ class MechanismAction(SystemAction):
 
         out += "<h4>Input Messages:</h4>\n"
         for i, x in enumerate(description_set["inputs"]):
+            out += "<p>"
             out += "{}. {}".format(i+1, x)
-            out += "<br/>"
+            out += "</p>"
 
         out += "<h4>Followed By:</h4>\n"
         for i, x in enumerate(description_set["followed_by"]):
+            out += "<p>"
             out += "{}. {}".format(i+1, x)
-            out += "<br/>"
+            out += "</p>"
 
         out += "<h4>Output Messages:</h4>\n"
         for i, x in enumerate(description_set["outputs"]):
+            out += "<p>"
             out += "{}. {}".format(i+1, x)
-            out += "<br/>"
+            out += "</p>"
 
         out += "<h4>Constraints:</h4>\n"
         for i, x in enumerate(self.constraints):
+            out += "<p>"
             out += "{}. {}\n".format(i+1, x)
-            out += "<br/>"
+            out += "</p>"
 
         out += "<h4>Logic:</h4>\n"
+        out += "<p>"
         out += self.logic
+        out += "</p>"
 
         return out
 
