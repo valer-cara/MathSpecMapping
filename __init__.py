@@ -5,4 +5,5 @@ from .classes import (SystemState, Message, Entity,
                       PolicyActionOption)
 from .functions import (find_starting_entities, create_graph,
                         write_out_behavioral_functions, reverse_out_graph,
-                        create_description_sets, write_out_policies)
+                        create_description_sets, write_out_policies,
+                        write_spec_details)
