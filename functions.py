@@ -92,6 +92,15 @@ def write_out_behavioral_functions(behavioral_action_space, action_names):
     return out
 
 
+def write_out_policies(policies, action_names, description_sets, policy_options):
+    out = "<h3>Policies</h3>"
+    for name in action_names:
+        out += policies[name].write_description(description_sets[name],
+                                                policy_options[name])
+
+    return out
+
+
 def reverse_out_graph(all_edges):
     all_edges_reverse = {}
     possible_outputs = {}
