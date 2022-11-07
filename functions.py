@@ -1,7 +1,7 @@
 from copy import copy
 import graphviz
 from IPython.display import display
-from .classes import StateModificationEdge, Edge
+from .classes import StateModificationEdge, Edge, PolicyAction, MechanismAction
 
 
 def find_starting_entities(actions_to_map, behavioral_action_space, behavioral_action_edges):
@@ -21,6 +21,10 @@ def find_starting_entities(actions_to_map, behavioral_action_space, behavioral_a
 
 
 def create_graph(actions_to_map, name, behavioral_action_space, all_edges):
+
+    all_nodes = {"behavioral": actions_to_map,
+                 "policies": [],
+                 "mechanisms": []}
 
     entities, edges, queue = find_starting_entities(actions_to_map, behavioral_action_space,
                                                     all_edges)
@@ -51,6 +55,11 @@ def create_graph(actions_to_map, name, behavioral_action_space, all_edges):
                 cur.target.create_node(graph)
                 seen.append(cur.target)
                 queue.extend(all_edges[cur.target.label])
+                if type(cur.target) == PolicyAction:
+                    all_nodes["policies"].append(cur.target.label)
+                if type(cur.target) == MechanismAction:
+                    all_nodes["mechanisms"].append(cur.target.label)
+
             if cur.optional:
                 graph.edge(cur.origin.label, cur.target.label,
                            color=cur.message.color, style="dashed")
@@ -82,6 +91,7 @@ def create_graph(actions_to_map, name, behavioral_action_space, all_edges):
         print("{}: {} -> {}".format(g.color, g.__name__, a))
         print()
     display(graph)
+    return all_nodes
 
 
 def write_out_behavioral_functions(behavioral_action_space, action_names):
