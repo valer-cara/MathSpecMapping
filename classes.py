@@ -30,6 +30,30 @@ class SystemState:
     pass
 
 
+class ParameterVariable:
+
+    def __init__(self, variable_type: type,
+                 name: str,
+                 description: str = None,
+                 symbol: str = None,
+                 units: str = None):
+        if description:
+            self.description = description
+
+        if symbol:
+            self.symbol = symbol
+
+        if units:
+            self.units = units
+
+    def __repr__(self):
+        return "{}-{}".format(self.name, self.variable_type)
+
+
+class ParameterSet:
+    pass
+
+
 class Message:
     color: str
 
