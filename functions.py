@@ -197,9 +197,13 @@ def write_local_state_variable_tables(state_dicts):
     return out
 
 
-def write_global_state_variable_tables(state_dicts):
+def write_global_state_variable_tables(system_state, state_dicts):
     out = ""
     out += "<h3>Global States</h3>"
+
+    out += "<h4>System State</h4>"
+    out += write_state_variable_table(system_state)
+
     for state_dict in state_dicts:
         out += "<h4>{}</h4>".format(state_dict["header"])
         out += write_state_variable_table(state_dict["target_state"])
