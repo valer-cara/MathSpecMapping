@@ -37,14 +37,11 @@ class ParameterVariable:
                  description: str = None,
                  symbol: str = None,
                  units: str = None):
-        if description:
-            self.description = description
-
-        if symbol:
-            self.symbol = symbol
-
-        if units:
-            self.units = units
+        self.variable_type = variable_type
+        self.name = name
+        self.description = description
+        self.symbol = symbol
+        self.units = units
 
     def __repr__(self):
         return "{}-{}".format(self.name, self.variable_type)

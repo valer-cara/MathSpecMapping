@@ -208,3 +208,28 @@ def write_global_state_variable_tables(system_state, state_dicts):
         out += "<h4>{}</h4>".format(state_dict["header"])
         out += write_state_variable_table(state_dict["target_state"])
     return out
+
+
+def write_state_parameter_table(target_parameter_set):
+    table = """<table>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Symbol</th>
+      </tr>"""
+
+    for var in target_parameter_set.__dict__["__annotations__"].values():
+        table_vars = [var.name, var.description, var.variable_type, var.symbol]
+        table += "<tr>"
+        for tv in table_vars:
+            table += "<td>"
+            if tv:
+                table += "{}".format(tv).replace("<",
+                                                 "&lt").replace(">", "&gt")
+            table += "</td>"
+
+        table += "</tr>"
+
+    table += "</table>"
+    return table
