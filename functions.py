@@ -161,3 +161,28 @@ def create_description_sets(all_edges):
                                "outputs": [y.__name__ for y in possible_outputs.get(x, [])],
                                "inputs": [y.__name__ for y in possible_inputs.get(x, [])]}
     return description_sets
+
+
+def write_state_variable_table(target_state):
+    table = """<table>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Symbol</th>
+      </tr>"""
+
+    for var in target_state.__dict__["__annotations__"].values():
+        table_vars = [var.name, var.description, var.variable_type, var.symbol]
+        table += "<tr>"
+        for tv in table_vars:
+            table += "<td>"
+            if tv:
+                table += "{}".format(tv).replace("<",
+                                                 "&lt").replace(">", "&gt")
+            table += "</td>"
+
+        table += "</tr>"
+
+    table += "</table>"
+    return table
