@@ -186,3 +186,12 @@ def write_state_variable_table(target_state):
 
     table += "</table>"
     return table
+
+
+def write_local_state_variable_tables(state_dicts):
+    out = ""
+    out += "<h3>Local States</h3>"
+    for state_dict in state_dicts:
+        out += "<h4>{}</h4>".format(state_dict["header"])
+        out += write_state_variable_table(state_dict["target_state"])
+    return out
