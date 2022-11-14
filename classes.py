@@ -4,16 +4,23 @@ from dataclasses import dataclass
 
 
 class StateVariable:
-    def __init__(self, variable_type: type,
-                 name: str,
-                 description: str = None,
+    variable_type: type
+    name: str
+    description: str = None
+    symbol: str = None
+    units: str = None
+
+    def __init__(self, description: str = None,
                  symbol: str = None,
                  units: str = None):
-        self.variable_type = variable_type
-        self.name = name
-        self.description = description
-        self.symbol = symbol
-        self.units = units
+        if description:
+            self.description = description
+
+        if symbol:
+            self.symbol = symbol
+
+        if units:
+            self.units = units
 
     def __repr__(self):
         return "{}-{}".format(self.name, self.variable_type)
