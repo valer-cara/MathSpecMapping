@@ -236,3 +236,16 @@ def write_global_state_variable_tables(system_state, system_parameters, state_di
         out += "<h4>{}</h4>".format(state_dict["header"])
         out += write_state_variable_table(state_dict["target_state"])
     return out
+
+
+def write_full_state_section(all_state_dictionaries):
+    out = ""
+
+    out += write_global_state_variable_tables(all_state_dictionaries["system_state"],
+                                              all_state_dictionaries["system_parameters"],
+                                              all_state_dictionaries["global_states"])
+
+    out += write_local_state_variable_tables(
+        all_state_dictionaries["local_states"])
+
+    return out
