@@ -170,10 +170,12 @@ def write_state_variable_table(target_state):
         <th>Description</th>
         <th>Type</th>
         <th>Symbol</th>
+        <th>Units</th>
       </tr>"""
 
     for var in target_state.__dict__["__annotations__"].values():
-        table_vars = [var.name, var.description, var.variable_type, var.symbol]
+        table_vars = [var.name, var.description,
+                      var.variable_type, var.symbol, var.units]
         table += "<tr>"
         for tv in table_vars:
             table += "<td>"
