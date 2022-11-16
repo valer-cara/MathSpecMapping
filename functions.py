@@ -222,15 +222,12 @@ def write_state_parameter_table(target_parameter_set):
     return table
 
 
-def write_global_state_variable_tables(system_state, system_parameters, state_dicts):
+def write_global_state_variable_tables(system_state, state_dicts):
     out = ""
     out += "<h3>Global States</h3>"
 
     out += "<h4>System State</h4>"
     out += write_state_variable_table(system_state)
-
-    out += "<h4>System Parameters</h4>"
-    out += write_state_parameter_table(system_parameters)
 
     for state_dict in state_dicts:
         out += "<h4>{}</h4>".format(state_dict["header"])
@@ -238,14 +235,41 @@ def write_global_state_variable_tables(system_state, system_parameters, state_di
     return out
 
 
+def write_global_parameters_tables(system_parameters, params_dict):
+    out = ""
+    out += "<h3>Global Parameters</h3>"
+
+    out += "<h4>System Parameters</h4>"
+    out += write_state_parameter_table(system_parameters)
+
+    for pd in params_dict:
+        out += "<h4>{}</h4>".format(pd["header"])
+        out += write_state_parameter_table(pd["target_state"])
+    return out
+
+
+def write_local_parameters_tables(params_dict):
+    out = ""
+    out += "<h3>Local Parameters</h3>"
+
+    for pd in params_dict:
+        out += "<h4>{}</h4>".format(pd["header"])
+        out += write_state_parameter_table(pd["target_state"])
+    return out
+
+
 def write_full_state_section(all_state_dictionaries):
     out = ""
 
     out += write_global_state_variable_tables(all_state_dictionaries["system_state"],
-                                              all_state_dictionaries["system_parameters"],
                                               all_state_dictionaries["global_states"])
+    out += write_global_parameters_tables(all_state_dictionaries["system_parameters"],
+                                          all_state_dictionaries["global_parameters"])
 
     out += write_local_state_variable_tables(
         all_state_dictionaries["local_states"])
+
+    out += write_local_parameters_tables(
+        all_state_dictionaries["local_parameters"])
 
     return out
