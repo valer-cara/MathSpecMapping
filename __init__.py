@@ -3,7 +3,8 @@ from .classes import (SystemState, Message, Entity,
                       PolicyAction, MechanismAction,
                       Edge, StateModificationEdge,
                       PolicyActionOption, StateVariable,
-                      ParameterVariable, ParameterSet)
+                      ParameterVariable, ParameterSet,
+                      DerivedMetric, MetricSet)
 from .functions import (find_starting_entities, create_graph,
                         write_out_behavioral_functions, reverse_out_graph,
                         create_description_sets, write_out_policies,

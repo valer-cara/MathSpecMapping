@@ -222,6 +222,31 @@ def write_state_parameter_table(target_parameter_set):
     return table
 
 
+def write_metrics_table(metric_table):
+    table = """<table>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Value</th>
+        <th>Units</th>
+      </tr>"""
+
+    for var in metric_table.__dict__["__annotations__"].values():
+        table_vars = [var.name, var.description, var.value, var.units]
+        table += "<tr>"
+        for tv in table_vars:
+            table += "<td>"
+            if tv:
+                table += "{}".format(tv).replace("<",
+                                                 "&lt").replace(">", "&gt")
+            table += "</td>"
+
+        table += "</tr>"
+
+    table += "</table>"
+    return table
+
+
 def write_global_state_variable_tables(system_state, state_dicts):
     out = ""
     out += "<h3>Global States</h3>"
@@ -258,6 +283,20 @@ def write_local_parameters_tables(params_dict):
     return out
 
 
+def write_global_metrics(global_metrics):
+    out = ""
+    out += "<h3>Global Metrics</h3>"
+    out += write_metrics_table(global_metrics)
+    return out
+
+
+def write_local_metrics(local_metrics):
+    out = ""
+    out += "<h3>Local Metrics</h3>"
+    out += write_metrics_table(local_metrics)
+    return out
+
+
 def write_full_state_section(all_state_dictionaries):
     out = ""
 
@@ -266,10 +305,14 @@ def write_full_state_section(all_state_dictionaries):
     out += write_global_parameters_tables(all_state_dictionaries["system_parameters"],
                                           all_state_dictionaries["global_parameters"])
 
+    out += write_global_metrics(all_state_dictionaries["global_metrics"])
+
     out += write_local_state_variable_tables(
         all_state_dictionaries["local_states"])
 
     out += write_local_parameters_tables(
         all_state_dictionaries["local_parameters"])
+
+    out += write_local_metrics(all_state_dictionaries["local_metrics"])
 
     return out

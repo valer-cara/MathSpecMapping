@@ -47,7 +47,26 @@ class ParameterVariable:
         return "{}-{}".format(self.name, self.variable_type)
 
 
+class DerivedMetric:
+
+    def __init__(self, name: str,
+                 description: str = None,
+                 value: str = None,
+                 units: str = None):
+        self.name = name
+        self.description = description
+        self.value = value
+        self.units = units
+
+    def __repr__(self):
+        return "{}".format(self.name)
+
+
 class ParameterSet:
+    pass
+
+
+class MetricSet:
     pass
 
 
