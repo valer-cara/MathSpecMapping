@@ -8,19 +8,19 @@ class StateVariable:
     name: str
     description: str = None
     symbol: str = None
-    units: str = None
+    domain: str = None
 
     def __init__(self, description: str = None,
                  symbol: str = None,
-                 units: str = None):
+                 domain: str = None):
         if description:
             self.description = description
 
         if symbol:
             self.symbol = symbol
 
-        if units:
-            self.units = units
+        if domain:
+            self.domain = domain
 
     def __repr__(self):
         return "{}-{}".format(self.name, self.variable_type)
@@ -36,12 +36,12 @@ class ParameterVariable:
                  name: str,
                  description: str = None,
                  symbol: str = None,
-                 units: str = None):
+                 domain: str = None):
         self.variable_type = variable_type
         self.name = name
         self.description = description
         self.symbol = symbol
-        self.units = units
+        self.domain = domain
 
     def __repr__(self):
         return "{}-{}".format(self.name, self.variable_type)
@@ -52,11 +52,11 @@ class DerivedMetric:
     def __init__(self, name: str,
                  description: str = None,
                  value: str = None,
-                 units: str = None):
+                 domain: str = None):
         self.name = name
         self.description = description
         self.value = value
-        self.units = units
+        self.domain = domain
 
     def __repr__(self):
         return "{}".format(self.name)
